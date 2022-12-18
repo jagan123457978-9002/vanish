@@ -1,0 +1,53 @@
+package basicweb;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
+
+
+public class Testng1 {
+	WebDriver driver;
+	
+ @BeforeClass
+ public void launchBrowser()
+ {
+ 
+	// TODO Auto-generated method stub
+
+	System.setProperty("webdriver.chrome.driver","D:\\chromedriver_win32\\chromedriver.exe");
+
+	driver= new ChromeDriver();
+	driver.get("https://www.facebook.com");
+	driver.findElement(By.linkText("Create New Account")).click();
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+ }
+	@Test
+	public void Enter_detail()
+	{
+	driver.findElement(By.name("firstname")).sendKeys("Nisha");
+	driver.findElement(By.name("lastname")).sendKeys("kutty");
+	driver.findElement(By.name("reg_email__")).sendKeys("Nisha@gmail.com");
+	driver.findElement(By.name("reg_password")).sendKeys("Nisha123");
+	Select day =new Select(driver.findElement(By.id("day")));
+	day.selectByValue("17");  
+	Select month =new Select(driver.findElement(By.name("birthday_month")));
+	month.selectByValue("12");
+	Select year =new Select(driver.findElement(By.name("birthday_year")));
+	year.selectByVisibleText("2001");
+	
+	
+	driver.findElement(By.xpath("//input[@value ='2']")).click();
+	driver.findElement(By.name("Websubmit")).submit();
+ }
+	@AfterClass
+	public void close()
+	{
+		driver.quit();
+}
+}
